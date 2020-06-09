@@ -1,6 +1,7 @@
 class ClientNameHandler:
 
-    def request_client_name(self, client_conn):
+    @staticmethod
+    def request_client_name(client_conn):
         client_conn.sendall(bytes("Please create your nick name: ", "UTF-8"))
         raw_name = client_conn.recv(1024)
         name = raw_name.decode()
@@ -21,5 +22,6 @@ class ClientNameHandler:
             name_dict[client_addr] = name_entered + str(name_extension)
 
     def get_client_name(self, server, client_addr):
-        name_dict = server.clients
+        name_dict = server.active_users
         return name_dict[client_addr]
+
